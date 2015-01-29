@@ -26,6 +26,9 @@ TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+REST_FRAMEWORK = {
+    'PAGINATE_BY': 10
+}
 
 # Application definition
 
