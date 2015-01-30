@@ -1,19 +1,43 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+ 
+"""
+Contain serializers of snippets app.
+"""
+
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from snippets.models import Snippet
 
-# ModelSerializer is simply a shortcut for creating serializer classes:
-# - An automatically determined set of fields
-# - Simple default implementations for the create() and update() methods
 class SnippetSerializer(serializers.HyperlinkedModelSerializer):
-    owner = serializers.ReadOnlyField(source = 'owner.username')
-    highlight = serializers.HyperlinkedIdentityField(view_name = 'snippet-highlight', format = 'html')
-    class Meta:
+    """
+    This serializer allow create() and update() method.
+	It is linked with the model `Snippet` and map the following
+	fields: `url`, `title`, `code`, `linenos`, `language`
+	and `style`. It serialize also `highlight` which link the snippet
+	to the highlighted code formatted as html, and `owner` which is
+	the username of the owner.
+    """
+
+    owner = serializers.ReadOnlyField(source='owner.username')
+    highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
+
+    class Meta(object):
+
         model = Snippet
         fields = ('url', 'highlight', 'title', 'code', 'linenos', 'language', 'style', 'owner',)
 
 class UserSerializer(serializers.ModelSerializer):
-    snippets = serializers.HyperlinkedIdentityField(many = True, view_name = 'snippet-detail', read_only = True)
-    class Meta:
+	"""
+	This serializer allow create() and update() method.
+	It is linked with the model `User` and map the following
+	fields: `id` and `username`. It serialize also `snippets`
+	which is a link to the snippets defined by the user.
+	"""
+
+    snippets = serializers.HyperlinkedIdentityField(many=True, view_name='snippet-detail', read_only=True)
+
+    class Meta(object):
+
         model = User
         fields = ('id', 'username', 'snippets')
