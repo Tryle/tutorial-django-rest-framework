@@ -6,7 +6,8 @@ Contain serializers of snippets app.
 
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from snippets.models import Snippet
+from models import Snippet
+
 
 class SnippetSerializer(serializers.HyperlinkedModelSerializer):
 
@@ -14,7 +15,7 @@ class SnippetSerializer(serializers.HyperlinkedModelSerializer):
     This serializer allow create() and update() method.
     It is linked with the model `Snippet` and map the following
     fields: `url`, `title`, `code`, `linenos`, `language`
-    and `style`. It serialize also `highlight` which link the snippet
+    and `style`. It serialize also `highlight` pilinwhich link the snippet
     to the highlighted code formatted as html, and `owner` which is
     the username of the owner.
     """
@@ -24,8 +25,13 @@ class SnippetSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta(object):
 
+        """
+        TODO
+        """
+
         model = Snippet
         fields = ('url', 'highlight', 'title', 'code', 'linenos', 'language', 'style', 'owner',)
+
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -39,6 +45,10 @@ class UserSerializer(serializers.ModelSerializer):
     snippets = serializers.HyperlinkedIdentityField(many=True, view_name='snippet-detail', read_only=True)
 
     class Meta(object):
+
+        """
+        TODO
+        """
 
         model = User
         fields = ('id', 'username', 'snippets')
