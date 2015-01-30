@@ -10,4 +10,4 @@ ignore-paths:
     - tutorial/settings.py
     - tutorial/wsgi.py
 ignore-patterns:
-    - __init__.py
+    - __init__\.py$
