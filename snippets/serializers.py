@@ -1,6 +1,5 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
- 
+
 """
 Contain serializers of snippets app.
 """
@@ -10,13 +9,14 @@ from rest_framework import serializers
 from snippets.models import Snippet
 
 class SnippetSerializer(serializers.HyperlinkedModelSerializer):
+
     """
     This serializer allow create() and update() method.
-	It is linked with the model `Snippet` and map the following
-	fields: `url`, `title`, `code`, `linenos`, `language`
-	and `style`. It serialize also `highlight` which link the snippet
-	to the highlighted code formatted as html, and `owner` which is
-	the username of the owner.
+    It is linked with the model `Snippet` and map the following
+    fields: `url`, `title`, `code`, `linenos`, `language`
+    and `style`. It serialize also `highlight` which link the snippet
+    to the highlighted code formatted as html, and `owner` which is
+    the username of the owner.
     """
 
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -28,12 +28,13 @@ class SnippetSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'highlight', 'title', 'code', 'linenos', 'language', 'style', 'owner',)
 
 class UserSerializer(serializers.ModelSerializer):
-	"""
-	This serializer allow create() and update() method.
-	It is linked with the model `User` and map the following
-	fields: `id` and `username`. It serialize also `snippets`
-	which is a link to the snippets defined by the user.
-	"""
+
+    """
+    This serializer allow create() and update() method.
+    It is linked with the model `User` and map the following
+    fields: `id` and `username`. It serialize also `snippets`
+    which is a link to the snippets defined by the user.
+    """
 
     snippets = serializers.HyperlinkedIdentityField(many=True, view_name='snippet-detail', read_only=True)
 
