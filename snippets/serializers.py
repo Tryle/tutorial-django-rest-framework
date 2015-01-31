@@ -6,7 +6,7 @@ Contain serializers of snippets app.
 
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from models import Snippet
+from snippets.models import Snippet
 
 
 class SnippetSerializer(serializers.HyperlinkedModelSerializer):
